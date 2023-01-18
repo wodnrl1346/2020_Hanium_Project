@@ -1,0 +1,18 @@
+-master(HC-05) MAC-0020:08:0009D4
+
+AT
+AT+name=MASTER	//AT+name=바꿀 이름
+AT+PSWD=“1111”		//AT+PSWD="바꿀 번호”
+AT+BAUD4		//통신속도 9600으로 맞추기
+AT+ROLE=1		//master 역할 부여
+AT+CMODE=1  		//임의 장치와 연결 가능하게 해주는 명령
+AT+PAIR=0020,04,324473,20	//AT+PAIR=Slave장치[MAC Address], 연결제한시간
+AT+BIND=0020,04,324473,20  //장치 주소 등록(AT+BIND=[MAC Address])
+AT+CMODE=0		//등록된 장치 자동 연결할 수 있도록 하기
+
+-slave(HC-06) MAC-0020:04:324473
+AT
+AT+nameSLAVE			//AT+name바꿀이름
+AT+PIN 1111			//AT+PIN 비밀번호
+AT+BAUD4			//통신속도 9600으로 맞추기
+AT+ROLE=0			//slave 역할 부여
