@@ -24,7 +24,7 @@ void setup() {
   pinMode(4, OUTPUT); // 초록불 신호등
 
   SPI.begin(); // Init SPI bus
-  rfid.PCD_Init();  // Init MFRC552
+  rfid.PCD_Init();  // Init MFRC522
 
   for (byte i = 0; i < 6; i++){
     key.keyByte[i] = 0xFF;
@@ -74,7 +74,7 @@ void loop() {
     }
 
     if (rfid.uid.uidByte[0] == 138 && rfid.uid.uidByte[1] == 187
-        && rfid.uid.uidByte[2] == 245 && rfid.uid.uidByte[3] == 129) {    //******노인/어린이 카드 태그******
+        && rfid.uid.uidByte[2] == 245 && rfid.uid.uidByte[3] == 129) {    //******적녹색맹 카드 태그******
       lcd.print("Red green blind");
       digitalWrite(5, LOW);
       digitalWrite(4, HIGH); // 파란신호등 켜짐
@@ -83,17 +83,17 @@ void loop() {
       lcd.clear();
         }
         
-    if (rfid.uid.uidByte[0] == 167 && rfid.uid.uidByte[1] == 208
+    else if (rfid.uid.uidByte[0] == 167 && rfid.uid.uidByte[1] == 208
         && rfid.uid.uidByte[2] == 66 && rfid.uid.uidByte[3] == 180) {    //******노인/어린이 카드 태그******
       lcd.print("Children & Elders");
       digitalWrite(5, LOW); // 초록 신호등 켜짐
       delay(7000);  // 7초 동안
       digitalWrite(5, LOW);     
       lcd.clear();
-        }
+    }
 
     else{
-      lcd.print("Blind person");
+      lcd.print("Blind person");    //*****시각 장애인 카드 태그*****
       char data='1';
       BTSerial.write(data);    
     }    
